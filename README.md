@@ -29,7 +29,7 @@ Usage
 You can install using gradle:
 
 ```
-allprojects {
+	allprojects {
 		repositories {
 			...
 			maven { url "https://jitpack.io" }
@@ -38,9 +38,9 @@ allprojects {
 ```
 
 ```
-dependencies {
-    compile 'com.github.manjunathc23:CircularImageView:1.0.0'
-}
+	dependencies {
+	        compile 'com.github.manjunathc23:CircularImageView:v1.0.0'
+	}
 	
 ```
 
