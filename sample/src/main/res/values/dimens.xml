@@ -1,0 +1,32 @@
+<resources>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="circular_image_view_boarder">1dp</dimen>
+
+    <!-- Margins -->
+    <dimen name="default_half_padding_margin">2dp</dimen>
+    <dimen name="default_padding_margin">4dp</dimen>
+    <dimen name="default_2x_padding_margin">8dp</dimen>
+    <dimen name="default_3x_padding_margin">12dp</dimen>
+    <dimen name="default_4x_padding_margin">16dp</dimen>
+    <dimen name="default_5x_padding_margin">20dp</dimen>
+    <dimen name="default_6x_padding_margin">24dp</dimen>
+    <dimen name="default_7x_padding_margin">28dp</dimen>
+    <dimen name="default_8x_padding_margin">32dp</dimen>
+    <dimen name="default_left_right_padding_margin">18dp</dimen>
+
+    <!-- text size dimens -->
+    <dimen name="ultraLargeTextSize">42sp</dimen>
+    <dimen name="megaLargeTextSize">30sp</dimen>
+    <dimen name="xx_largeTextSize">22sp</dimen>
+    <dimen name="x_largeTextSize">20sp</dimen>
+    <dimen name="largeTextSize">18sp</dimen>
+    <dimen name="mediumTextSize">16sp</dimen>
+    <dimen name="smallTextSize">14sp</dimen>
+    <dimen name="microTextSize">12sp</dimen>
+    <dimen name="x_microTextSize">10sp</dimen>
+    <dimen name="xx_microTextSize">8sp</dimen>
+    <dimen name="titleTextSize">@dimen/x_largeTextSize</dimen>
+
+</resources>

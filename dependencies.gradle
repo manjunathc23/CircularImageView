@@ -1,0 +1,39 @@
+ext.versions = [
+        compileSdk         : 24,
+        buildTools         : "24.0.1",
+        minSdk             : 15,
+        targetSdk          : 23,
+
+        supportLib         : "24.1.1",
+
+        glide              : "3.7.0",
+        glideOkHttp        : "1.4.0",
+
+        junit              : '4.12',
+        assertJ            : '1.7.1',
+
+        gradlePlugin       : "2.1.2",
+        aptToolsPlugin     : "1.8",
+]
+
+ext.gradlePlugins = [
+        androidTools: "com.android.tools.build:gradle:$versions.gradlePlugin",
+        apt         : "com.neenbedankt.gradle.plugins:android-apt:$versions.aptToolsPlugin",
+]
+
+ext.libraries = [
+
+        //region support libraries
+        supportAppCompat        : "com.android.support:appcompat-v7:$versions.supportLib",
+        //endregion
+
+        //region IMAGE PROCESSOR
+        glide                   : "com.github.bumptech.glide:glide:$versions.glide",
+        glideOkHttp             : "com.github.bumptech.glide:okhttp3-integration:$versions.glideOkHttp",
+        //endregion
+
+        //region TESTING DEPENDENCIES
+        junit                   : "junit:junit:$versions.junit",
+        assertJ                 : "org.assertj:assertj-core:$versions.assertJ",
+        //endregion
+]
