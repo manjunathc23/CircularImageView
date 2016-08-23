@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion versions.compileSdk
+    buildToolsVersion versions.buildTools
+
+    dexOptions {
+        javaMaxHeapSize "2g"
+    }
+
+    defaultConfig {
+        applicationId "com.github.manjunathc23.sample"
+        minSdkVersion 15
+        targetSdkVersion 24
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            minifyEnabled false
+            debuggable true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
+    }
+
+    lintOptions {
+        warningsAsErrors false
+        abortOnError false
+
+        //App does not have deep linking.
+        disable 'GoogleAppIndexingWarning'
+        //Okio references java.nio that does not presented in Android SDK.
+        disable 'InvalidPackage'
+
+        xmlReport false
+        htmlReport true
+        lintConfig file("${project.rootDir}/../code_quality/lint/lint.xml")
+        htmlOutput file("$project.buildDir/reports/lint/lint-result.html")
+        xmlOutput file("$project.buildDir/reports/lint/lint-result.xml")
+    }
+
+    sourceSets {
+        // Unit tests for debug build type specific code live in src/debugTest.
+        testDebug.java.srcDir 'src/debugTest/java'
+    }
+
+    packagingOptions {
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+    }
+
+    // This allows us see tests execution progress in the output on the CI.
+    testOptions.unitTests.all {
+        testLogging {
+            events 'passed', 'skipped', 'failed', 'standardOut', 'standardError'
+            exceptionFormat 'full'
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile project(':circularimageview')
+
+    //SUPPORT LIBS
+
+    compile libraries.supportAppCompat
+
+    //IMAGE PROCESSING
+    compile libraries.glide
+    compile(libraries.glideOkHttp) {
+        exclude group: 'glide-parent'
+    }
+
+    //TESTING
+    testCompile libraries.junit
+    testCompile libraries.assertJ
+}
+
