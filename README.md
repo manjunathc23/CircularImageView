@@ -8,7 +8,7 @@
 
 --
 
-![pjimage](https://cloud.githubusercontent.com/assets/1502341/17689877/4a8ec796-6350-11e6-84ee-62b55058e4e5.jpg)
+![pjimage](https://cloud.githubusercontent.com/assets/1502341/17903751/376af04e-6932-11e6-9ca3-6a5766e639b6.jpeg)
 
 Usage
 -----
