@@ -20,8 +20,8 @@ Usage
         android:layout_height="160dp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/default_6x_padding_margin"
-        app:zeta_civ_border_color="@color/zeta_white"
-        app:zeta_civ_border_width="@dimen/circular_image_view_boarder" />
+        app:civ_border_color="@color/zeta_white"
+        app:civ_border_width="@dimen/circular_image_view_boarder" />
 ```
 
 ## Install
