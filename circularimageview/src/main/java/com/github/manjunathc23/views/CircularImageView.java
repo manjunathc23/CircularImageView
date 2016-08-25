@@ -24,43 +24,37 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.widget.ImageView;
 
+import com.github.manjunathc23.params.CircularImageOptionsParams;
+
 @SuppressWarnings("unused")
 public class CircularImageView extends ImageView {
-
     private static final String TAG = CircularImageView.class.getSimpleName();
-
-    private static final int COLOR_DRAWABLE_DIMENSION = 2;
-    private static final Bitmap.Config BITMAP_CONFIG = Bitmap.Config.ARGB_8888;
-    private static final ImageView.ScaleType SCALE_TYPE = ImageView.ScaleType.CENTER_CROP;
+    private static final ImageView.ScaleType DEFAULT_SCALE_TYPE = ImageView.ScaleType.CENTER_CROP;
 
     private static final int DEFAULT_BORDER_WIDTH = 0;
-    private static final int DEFAULT_BORDER_COLOR = Color.BLACK;
-    private static final int DEFAULT_FILL_COLOR = Color.TRANSPARENT;
     private static final boolean DEFAULT_BORDER_OVERLAY = false;
-
-    private final RectF mDrawableRect = new RectF();
-    private final RectF mBorderRect = new RectF();
-
-    private final Paint mBitmapPaint = new Paint();
-    private final Paint mBorderPaint = new Paint();
-    private final Paint mFillPaint = new Paint();
-
-    private final Matrix mShaderMatrix = new Matrix();
+    private static final int DEFAULT_BORDER_COLOR = Color.WHITE;
+    private static final int DEFAULT_FILL_COLOR = Color.TRANSPARENT;
 
     private int mBorderColor = DEFAULT_BORDER_COLOR;
     private int mBorderWidth = DEFAULT_BORDER_WIDTH;
     private int mFillColor = DEFAULT_FILL_COLOR;
 
-    private int mBitmapWidth;
-    private int mBitmapHeight;
+    private final RectF mDrawableRect = new RectF();
+    private final RectF mBorderRect = new RectF();
+    private final Paint mBitmapPaint = new Paint();
+    private final Paint mBorderPaint = new Paint();
+    private final Paint mFillPaint = new Paint();
+    private final Matrix mShaderMatrix = new Matrix();
 
     private Bitmap mBitmap;
     private BitmapShader mBitmapShader;
-
-    private float mDrawableRadius;
-    private float mBorderRadius;
-
     private ColorFilter mColorFilter;
+
+    private int mBitmapWidth;
+    private int mBitmapHeight;
+    private float mBorderRadius;
+    private float mDrawableRadius;
 
     private boolean mReady;
     private boolean mSetupPending;
@@ -79,24 +73,30 @@ public class CircularImageView extends ImageView {
 
     public CircularImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyle, 0);
-        mBorderWidth = a.getDimensionPixelSize(R.styleable.CircularImageView_civ_border_width, DEFAULT_BORDER_WIDTH);
-        mBorderColor = a.getColor(R.styleable.CircularImageView_civ_border_color, DEFAULT_BORDER_COLOR);
-        mBorderOverlay = a.getBoolean(R.styleable.CircularImageView_civ_border_overlay, DEFAULT_BORDER_OVERLAY);
-        mFillColor = a.getColor(R.styleable.CircularImageView_civ_fill_color, DEFAULT_FILL_COLOR);
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView,
+                defStyle, 0);
+        mFillColor = a.getColor(R.styleable.CircularImageView_civ_fill_color,
+                DEFAULT_FILL_COLOR);
+        mBorderColor = a.getColor(R.styleable.CircularImageView_civ_border_color,
+                DEFAULT_BORDER_COLOR);
+        mBorderOverlay = a.getBoolean(R.styleable.CircularImageView_civ_border_overlay,
+                DEFAULT_BORDER_OVERLAY);
+        mBorderWidth = a.getDimensionPixelSize(R.styleable.CircularImageView_civ_border_width,
+                DEFAULT_BORDER_WIDTH);
         a.recycle();
         init();
     }
 
     @Override
     public ImageView.ScaleType getScaleType() {
-        return SCALE_TYPE;
+        return DEFAULT_SCALE_TYPE;
     }
 
     @Override
     public void setScaleType(ImageView.ScaleType scaleType) {
-        if (scaleType != SCALE_TYPE) {
-            throw new IllegalArgumentException(String.format("ScaleType %s not supported.", scaleType));
+        if (scaleType != DEFAULT_SCALE_TYPE) {
+            throw new IllegalArgumentException(String.format("ScaleType %s not supported.",
+                    scaleType));
         }
     }
 
@@ -114,16 +114,25 @@ public class CircularImageView extends ImageView {
             return;
         }
 
+        //Sanity check
         if (mBitmap == null) {
             return;
         }
 
+        //Fill the color of the bitmap
         if (mFillColor != Color.TRANSPARENT) {
-            canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(), mDrawableRadius, mFillPaint);
+            canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(),
+                    mDrawableRadius, mFillPaint);
         }
-        canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(), mDrawableRadius, mBitmapPaint);
-        if (mBorderWidth != 0) {
-            canvas.drawCircle(mBorderRect.centerX(), mBorderRect.centerY(), mBorderRadius, mBorderPaint);
+
+        //Draw circular image
+        canvas.drawCircle(mDrawableRect.centerX(), mDrawableRect.centerY(),
+                mDrawableRadius, mBitmapPaint);
+
+        //Draw border
+        if (mBorderWidth > 0) {
+            canvas.drawCircle(mBorderRect.centerX(), mBorderRect.centerY(),
+                    mBorderRadius, mBorderPaint);
         }
     }
 
@@ -131,81 +140,6 @@ public class CircularImageView extends ImageView {
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
         setupCircularImageView();
-    }
-
-    public int getBorderColor() {
-        return mBorderColor;
-    }
-
-    public void setBorderColor(@ColorInt int borderColor) {
-        if (borderColor == mBorderColor) {
-            return;
-        }
-
-        mBorderColor = borderColor;
-        mBorderPaint.setColor(mBorderColor);
-        invalidate();
-    }
-
-    public void setBorderColorResource(@ColorRes int borderColorRes) {
-        setBorderColor(ContextCompat.getColor(getContext(), borderColorRes));
-    }
-
-    public int getFillColor() {
-        return mFillColor;
-    }
-
-    public void setFillColor(@ColorInt int fillColor) {
-        if (fillColor == mFillColor) {
-            return;
-        }
-
-        mFillColor = fillColor;
-        mFillPaint.setColor(fillColor);
-        invalidate();
-    }
-
-    public void setFillColorResource(@ColorRes int fillColorRes) {
-        setFillColor(ContextCompat.getColor(getContext(), fillColorRes));
-    }
-
-    public int getBorderWidth() {
-        return mBorderWidth;
-    }
-
-    public void setBorderWidth(int borderWidth) {
-        if (borderWidth == mBorderWidth) {
-            return;
-        }
-
-        mBorderWidth = borderWidth;
-        setupCircularImageView();
-    }
-
-    public boolean isBorderOverlay() {
-        return mBorderOverlay;
-    }
-
-    public void setBorderOverlay(boolean borderOverlay) {
-        if (borderOverlay == mBorderOverlay) {
-            return;
-        }
-
-        mBorderOverlay = borderOverlay;
-        setupCircularImageView();
-    }
-
-    public boolean isDisableCircularTransformation() {
-        return mDisableCircularTransformation;
-    }
-
-    public void setDisableCircularTransformation(boolean disableCircularTransformation) {
-        if (mDisableCircularTransformation == disableCircularTransformation) {
-            return;
-        }
-
-        mDisableCircularTransformation = disableCircularTransformation;
-        initializeBitmap();
     }
 
     @Override
@@ -238,7 +172,7 @@ public class CircularImageView extends ImageView {
             return;
         }
         mColorFilter = colorFilter;
-        applyColorFilter();
+        applyColorFilter(colorFilter);
         invalidate();
     }
 
@@ -249,6 +183,7 @@ public class CircularImageView extends ImageView {
 
     @Nullable
     private Bitmap getBitmapFromDrawable(@Nullable Drawable drawable) {
+        //Sanity
         if (drawable == null) {
             return null;
         }
@@ -257,12 +192,19 @@ public class CircularImageView extends ImageView {
             return ((BitmapDrawable) drawable).getBitmap();
         }
 
+        int colorDrawableDimension = getContext().getResources()
+                .getInteger(R.integer.color_dimension);
+
         try {
             Bitmap bitmap;
             if (drawable instanceof ColorDrawable) {
-                bitmap = Bitmap.createBitmap(COLOR_DRAWABLE_DIMENSION, COLOR_DRAWABLE_DIMENSION, BITMAP_CONFIG);
+                bitmap = Bitmap.createBitmap(colorDrawableDimension,
+                        colorDrawableDimension,
+                        Bitmap.Config.ARGB_8888);
             } else {
-                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), BITMAP_CONFIG);
+                bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                        drawable.getIntrinsicHeight(),
+                        Bitmap.Config.ARGB_8888);
             }
 
             Canvas canvas = new Canvas(bitmap);
@@ -275,8 +217,43 @@ public class CircularImageView extends ImageView {
         }
     }
 
-    private void init() {
-        super.setScaleType(SCALE_TYPE);
+    //region public methods
+    public void setAdditionalData(CircularImageOptionsParams params) {
+        setFillColor(params.getFillColor());
+        setBorderWidth(params.getBorderWidth());
+        setBorderColor(params.getBorderColor());
+        setFillColorResource(params.getFillColorRes());
+        setBorderOverlay(params.isShowBorderOverlay());
+        setBorderColorResource(params.getBorderColorRes());
+        setDisableCircularTransformation(params.isDisableCircularTransformation());
+    }
+
+    @ColorInt
+    public int getBorderColor() {
+        return mBorderColor;
+    }
+
+    @ColorInt
+    public int getFillColor() {
+        return mFillColor;
+    }
+
+    public int getBorderWidth() {
+        return mBorderWidth;
+    }
+
+    public boolean isBorderOverlay() {
+        return mBorderOverlay;
+    }
+
+    public boolean isDisableCircularTransformation() {
+        return mDisableCircularTransformation;
+    }
+    //endregion public methods
+
+    //region internal helper methods
+    private synchronized void init() {
+        super.setScaleType(DEFAULT_SCALE_TYPE);
         mReady = true;
         if (mSetupPending) {
             setupCircularImageView();
@@ -287,9 +264,10 @@ public class CircularImageView extends ImageView {
     private void initializeBitmap() {
         if (mDisableCircularTransformation) {
             mBitmap = null;
-        } else {
-            mBitmap = getBitmapFromDrawable(getDrawable());
+            return;
         }
+
+        mBitmap = getBitmapFromDrawable(getDrawable());
         setupCircularImageView();
     }
 
@@ -312,7 +290,6 @@ public class CircularImageView extends ImageView {
 
         mBitmapPaint.setAntiAlias(true);
         mBitmapPaint.setShader(mBitmapShader);
-
         mBorderPaint.setStyle(Paint.Style.STROKE);
         mBorderPaint.setAntiAlias(true);
         mBorderPaint.setColor(mBorderColor);
@@ -326,22 +303,25 @@ public class CircularImageView extends ImageView {
         mBitmapWidth = mBitmap.getWidth();
 
         mBorderRect.set(calculateBounds());
-        mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2.0f, (mBorderRect.width() - mBorderWidth) / 2.0f);
+        mBorderRadius = Math.min((mBorderRect.height() - mBorderWidth) / 2.0f,
+                (mBorderRect.width() - mBorderWidth) / 2.0f);
 
         mDrawableRect.set(mBorderRect);
         if (!mBorderOverlay) {
             mDrawableRect.inset(mBorderWidth, mBorderWidth);
         }
-        mDrawableRadius = Math.min(mDrawableRect.height() / 2.0f, mDrawableRect.width() / 2.0f);
-        applyColorFilter();
+        mDrawableRadius = Math.min(mDrawableRect.height() / 2.0f,
+                mDrawableRect.width() / 2.0f);
+        applyColorFilter(mColorFilter);
         updateShaderMatrix();
         invalidate();
     }
 
-    private void applyColorFilter() {
-        if (mBitmapPaint != null) {
-            mBitmapPaint.setColorFilter(mColorFilter);
+    private void applyColorFilter(ColorFilter colorFilter) {
+        if (mBitmapPaint == null) {
+            return;
         }
+        mBitmapPaint.setColorFilter(colorFilter);
     }
 
     private RectF calculateBounds() {
@@ -366,8 +346,69 @@ public class CircularImageView extends ImageView {
             dy = (mDrawableRect.height() - mBitmapHeight * scale) * 0.5f;
         }
         mShaderMatrix.setScale(scale, scale);
-        mShaderMatrix.postTranslate((int) (dx + 0.5f) + mDrawableRect.left, (int) (dy + 0.5f) + mDrawableRect.top);
+        mShaderMatrix.postTranslate((int) (dx + 0.5f) + mDrawableRect.left,
+                (int) (dy + 0.5f) + mDrawableRect.top);
         mBitmapShader.setLocalMatrix(mShaderMatrix);
     }
+    //endregion internal helper methods
+
+    //region internal setters
+    private void setBorderColor(@ColorInt int borderColor) {
+        if (borderColor == mBorderColor || borderColor == CircularImageOptionsParams.INVALID_RES) {
+            return;
+        }
+        mBorderColor = borderColor;
+        mBorderPaint.setColor(mBorderColor);
+        invalidate();
+    }
+
+    private void setBorderColorResource(@ColorRes int borderColorRes) {
+        if (borderColorRes == CircularImageOptionsParams.INVALID_RES) {
+            return;
+        }
+        setBorderColor(ContextCompat.getColor(getContext(), borderColorRes));
+    }
+
+    private void setFillColor(@ColorInt int fillColor) {
+        if (fillColor == mFillColor || fillColor == CircularImageOptionsParams.INVALID_RES) {
+            return;
+        }
+        mFillColor = fillColor;
+        mFillPaint.setColor(fillColor);
+        invalidate();
+    }
+
+    private void setFillColorResource(@ColorRes int fillColorRes) {
+        if (fillColorRes == CircularImageOptionsParams.INVALID_RES) {
+            return;
+        }
+        setFillColor(ContextCompat.getColor(getContext(), fillColorRes));
+    }
+
+    private void setBorderWidth(int borderWidth) {
+        if (borderWidth == mBorderWidth || borderWidth == CircularImageOptionsParams.INVALID_RES) {
+            return;
+        }
+        mBorderWidth = borderWidth;
+        setupCircularImageView();
+    }
+
+    private void setBorderOverlay(boolean borderOverlay) {
+        if (borderOverlay == mBorderOverlay) {
+            return;
+        }
+        mBorderOverlay = borderOverlay;
+        setupCircularImageView();
+    }
+
+    private void setDisableCircularTransformation(boolean disableCircularTransformation) {
+        if (mDisableCircularTransformation == disableCircularTransformation) {
+            return;
+        }
+
+        mDisableCircularTransformation = disableCircularTransformation;
+        initializeBitmap();
+    }
+    //end region internal setters
 
 }

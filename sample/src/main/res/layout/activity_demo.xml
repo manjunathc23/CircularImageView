@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/zeta_md_grey_600"
+    android:background="@color/civ_demo_grey_medium"
     android:gravity="center"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
@@ -15,20 +15,29 @@
 
     <com.github.manjunathc23.views.CircularImageView
         android:id="@+id/image_view_1"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/default_6x_padding_margin"
-        app:civ_border_color="@color/zeta_white"
+        app:civ_border_color="@color/civ_demo_white"
         app:civ_border_width="@dimen/circular_image_view_boarder" />
 
     <com.github.manjunathc23.views.CircularImageView
         android:id="@+id/image_view_2"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
         android:layout_gravity="center"
         android:layout_margin="@dimen/default_6x_padding_margin"
-        app:civ_border_color="@color/zeta_white"
+        app:civ_border_color="@color/civ_demo_white"
+        app:civ_border_width="@dimen/circular_image_view_boarder" />
+
+    <com.github.manjunathc23.views.CircularImageView
+        android:id="@+id/image_view_3"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/default_6x_padding_margin"
+        app:civ_border_color="@color/civ_demo_white"
         app:civ_border_width="@dimen/circular_image_view_boarder" />
 
 </LinearLayout>
