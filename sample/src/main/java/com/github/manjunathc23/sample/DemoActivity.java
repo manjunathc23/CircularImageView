@@ -62,7 +62,7 @@ public class DemoActivity extends AppCompatActivity {
 
     @RawRes
     private int getRandomDrawable() {
-        switch (mRandom.nextInt(8)) {
+        switch (mRandom.nextInt(9)) {
             case 1:
                 return R.raw.walter;
             case 2:
