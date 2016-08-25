@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.github.manjunathc23.sample"
-    android:installLocation="internalOnly"
-    tools:replace="android:allowBackup">
+    android:installLocation="internalOnly">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -11,7 +10,8 @@
         android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:replace="android:allowBackup">
         <activity
             android:name="com.github.manjunathc23.sample.DemoActivity"
             android:screenOrientation="portrait">

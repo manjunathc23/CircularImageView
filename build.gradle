@@ -130,7 +130,7 @@ subprojects {
         def checkTask = tasks.findByName('check')
 
         checkTask.dependsOn('pmd')
-        checkTask.dependsOn('findbugs')
+        //checkTask.dependsOn('findbugs')
         checkTask.dependsOn('checkstyle')
         checkTask.dependsOn('lint')
 
