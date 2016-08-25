@@ -9,18 +9,18 @@
 
 --
 
-![pjimage](https://cloud.githubusercontent.com/assets/1502341/17903751/376af04e-6932-11e6-9ca3-6a5766e639b6.jpeg)
+![circular image view ](https://cloud.githubusercontent.com/assets/1502341/17955535/9e9a992e-6a48-11e6-92fe-6c6778b183fd.jpeg)
 
 Usage
 -----
 ```xml
     <com.github.manjunathc23.views.CircularImageView
         android:id="@+id/image_view_1"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="@dimen/circular_image_view_width_height"
+        android:layout_height="@dimen/circular_image_view_width_height"
         android:layout_gravity="center"
-        android:layout_margin="@dimen/default_6x_padding_margin"
-        app:civ_border_color="@color/zeta_white"
+        android:layout_margin="@dimen/circular_image_view_padding_margin"
+        app:civ_border_color="@color/civ_demo_white"
         app:civ_border_width="@dimen/circular_image_view_boarder" />
 ```
 
@@ -39,7 +39,7 @@ You can install using gradle:
 
 ```
 	dependencies {
-	        compile 'com.github.manjunathc23:CircularImageView:v1.0.0'
+	        compile 'com.github.manjunathc23:CircularImageView:v1.0.4'
 	}
 	
 ```
