@@ -233,11 +233,11 @@ public class CircularImageView extends ImageView {
     }
 
     @Override
-    public void setColorFilter(ColorFilter cf) {
-        if (cf == mColorFilter) {
+    public void setColorFilter(ColorFilter colorFilter) {
+        if (colorFilter == mColorFilter) {
             return;
         }
-        mColorFilter = cf;
+        mColorFilter = colorFilter;
         applyColorFilter();
         invalidate();
     }
