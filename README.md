@@ -3,7 +3,7 @@
 [![Release](https://jitpack.io/v/manjunathc23/CircularImageView.svg)](https://jitpack.io/#manjunathc23/CircularImageView)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 ![SDK](https://img.shields.io/badge/SDK-15%2B-green.svg)
-![Release](https://img.shields.io/badge/release-v1.0.3-green.svg)
+![Release](https://img.shields.io/badge/release-v1.0.4-green.svg)
 [![Build Status](https://travis-ci.org/manjunathc23/CircularImageView.svg?branch=master)](https://api.travis-ci.org/manjunathc23/CircularImageView)
 [![CircleCI](https://circleci.com/gh/manjunathc23/CircularImageView.svg?style=svg)](https://circleci.com/gh/manjunathc23/CircularImageView)
 
