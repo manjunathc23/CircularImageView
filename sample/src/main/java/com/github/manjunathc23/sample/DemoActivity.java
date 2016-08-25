@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.RawRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.github.manjunathc23.params.CircularImageOptionsParams;

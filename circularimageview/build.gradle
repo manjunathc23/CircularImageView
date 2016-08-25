@@ -13,14 +13,14 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 
     lintOptions {
         warningsAsErrors false
-        abortOnError false
+        abortOnError true
 
         xmlReport false
         htmlReport true
@@ -28,7 +28,7 @@ android {
         htmlOutput file("$project.buildDir/reports/lint/lint-result.html")
         xmlOutput file("$project.buildDir/reports/lint/lint-result.xml")
     }
-    
+
 }
 
 dependencies {

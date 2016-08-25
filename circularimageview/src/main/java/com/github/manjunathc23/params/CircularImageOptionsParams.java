@@ -27,6 +27,25 @@ public class CircularImageOptionsParams {
 
     private boolean disableCircularTransformation;
 
+    private CircularImageOptionsParams(@ColorRes int borderColorRes,
+                                       @ColorInt int fillColor,
+                                       @ColorRes int fillColorRes,
+                                       @ColorInt int borderColor,
+                                       @DimenRes int borderWidth,
+                                       boolean showBorderOverlay,
+                                       boolean disableCircularTransformation) {
+        //Use CircularImageOptionsParams.CircularImageBuilder
+        // class to construct the params object
+
+        this.borderColorRes = borderColorRes;
+        this.fillColor = fillColor;
+        this.fillColorRes = fillColorRes;
+        this.borderColor = borderColor;
+        this.borderWidth = borderWidth;
+        this.showBorderOverlay = showBorderOverlay;
+        this.disableCircularTransformation = disableCircularTransformation;
+    }
+
     @ColorRes
     public int getBorderColorRes() {
         return borderColorRes;
@@ -60,26 +79,20 @@ public class CircularImageOptionsParams {
         return disableCircularTransformation;
     }
 
-    private CircularImageOptionsParams(@ColorRes int borderColorRes,
-                                       @ColorInt int fillColor,
-                                       @ColorRes int fillColorRes,
-                                       @ColorInt int borderColor,
-                                       @DimenRes int borderWidth,
-                                       boolean showBorderOverlay,
-                                       boolean disableCircularTransformation) {
-        //Use CircularImageOptionsParams.CircularImageBuilder
-        // class to construct the params object
-
-        this.borderColorRes = borderColorRes;
-        this.fillColor = fillColor;
-        this.fillColorRes = fillColorRes;
-        this.borderColor = borderColor;
-        this.borderWidth = borderWidth;
-        this.showBorderOverlay = showBorderOverlay;
-        this.disableCircularTransformation = disableCircularTransformation;
-    }
-
     public static class CircularImageBuilder {
+
+        @ColorRes
+        private int borderColorRes;
+        @ColorRes
+        private int fillColorRes;
+        @ColorInt
+        private int fillColor;
+        @ColorInt
+        private int borderColor;
+        @DimenRes
+        private int borderWidth;
+        private boolean showBorderOverlay;
+        private boolean disableCircularTransformation;
 
         public CircularImageBuilder() {
             borderColorRes = INVALID_RES;
@@ -88,25 +101,6 @@ public class CircularImageOptionsParams {
             borderColor = INVALID_RES;
             borderWidth = INVALID_RES;
         }
-
-        @ColorRes
-        private int borderColorRes;
-
-        @ColorRes
-        private int fillColorRes;
-
-        @ColorInt
-        private int fillColor;
-
-        @ColorInt
-        private int borderColor;
-
-        @DimenRes
-        private int borderWidth;
-
-        private boolean showBorderOverlay;
-
-        private boolean disableCircularTransformation;
 
         public CircularImageBuilder setBorderColorRes(@ColorRes int borderColorRes) {
             this.borderColorRes = borderColorRes;
