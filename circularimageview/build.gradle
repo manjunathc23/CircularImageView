@@ -20,7 +20,7 @@ android {
 
     lintOptions {
         warningsAsErrors false
-        abortOnError true
+        abortOnError false
 
         xmlReport false
         htmlReport true
