@@ -69,17 +69,15 @@ public class CircularImageView extends ImageView {
 
     public CircularImageView(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView,
-                defStyle, 0);
-        mFillColor = a.getColor(R.styleable.CircularImageView_civ_fill_color,
-                DEFAULT_FILL_COLOR);
-        mBorderColor = a.getColor(R.styleable.CircularImageView_civ_border_color,
-                DEFAULT_BORDER_COLOR);
-        mBorderOverlay = a.getBoolean(R.styleable.CircularImageView_civ_border_overlay,
-                DEFAULT_BORDER_OVERLAY);
-        mBorderWidth = a.getDimensionPixelSize(R.styleable.CircularImageView_civ_border_width,
-                DEFAULT_BORDER_WIDTH);
-        a.recycle();
+        TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CircularImageView, defStyle, 0);
+        try {
+            mFillColor = a.getColor(R.styleable.CircularImageView_civ_fill_color, DEFAULT_FILL_COLOR);
+            mBorderColor = a.getColor(R.styleable.CircularImageView_civ_border_color, DEFAULT_BORDER_COLOR);
+            mBorderOverlay = a.getBoolean(R.styleable.CircularImageView_civ_border_overlay, DEFAULT_BORDER_OVERLAY);
+            mBorderWidth = a.getDimensionPixelSize(R.styleable.CircularImageView_civ_border_width, DEFAULT_BORDER_WIDTH);
+        } finally {
+            a.recycle();
+        }
         init();
     }
 
