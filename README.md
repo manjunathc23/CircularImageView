@@ -39,7 +39,7 @@ You can install using gradle:
 
 ```
 	dependencies {
-	        compile 'com.github.manjunathc23:CircularImageView:v1.0.4'
+	        compile 'com.github.manjunathc23:CircularImageView:v1.0.8'
 	}
 	
 ```
