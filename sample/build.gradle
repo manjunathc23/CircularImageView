@@ -11,9 +11,9 @@ android {
     defaultConfig {
         applicationId "com.github.manjunathc23.sample"
         minSdkVersion 15
-        targetSdkVersion 24
+        targetSdkVersion 23
         versionCode 1
-        versionName "1.0.8"
+        versionName "1.0.9"
     }
 
     buildTypes {
