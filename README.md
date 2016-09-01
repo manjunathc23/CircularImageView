@@ -3,7 +3,7 @@
 [![Release](https://jitpack.io/v/manjunathc23/CircularImageView.svg)](https://jitpack.io/#manjunathc23/CircularImageView)
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 ![SDK](https://img.shields.io/badge/SDK-15%2B-green.svg)
-![Release](https://img.shields.io/badge/release-v1.0.8-green.svg)
+![Release](https://img.shields.io/badge/release-v1.0.9-green.svg)
 [![Build Status](https://travis-ci.org/manjunathc23/CircularImageView.svg?branch=master)](https://api.travis-ci.org/manjunathc23/CircularImageView)
 [![CircleCI](https://circleci.com/gh/manjunathc23/CircularImageView.svg?style=svg)](https://circleci.com/gh/manjunathc23/CircularImageView)
 
@@ -39,7 +39,7 @@ You can install using gradle:
 
 ```
 	dependencies {
-	        compile 'com.github.manjunathc23:CircularImageView:v1.0.8'
+	        compile 'com.github.manjunathc23:CircularImageView:v1.0.9'
 	}
 	
 ```
